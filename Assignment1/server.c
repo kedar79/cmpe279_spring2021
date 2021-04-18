@@ -16,7 +16,6 @@ int main(int argc, char const *argv[])
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     struct passwd* pwd;
-    pid_t pid;
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
@@ -61,7 +60,7 @@ int main(int argc, char const *argv[])
         perror("accept");
         exit(EXIT_FAILURE);
     }
-    int child = fork();
+    pid_t child = fork();
     if(child == -1)
     {
         perror("Fork failure");
@@ -74,13 +73,7 @@ int main(int argc, char const *argv[])
             perror("Unable to find user:nobody");
             exit(EXIT_FAILURE);
         }
-        pid = pwd->pw_uid;
-        printf("%d",pid);
-        if(setuid(pid) == -1)
-        {
-            perror("Privilege failed");
-            exit(EXIT_FAILURE);
-        }
+        setuid(pwd->pw_uid);
         valread = read( new_socket , buffer, 1024);
         printf("%s\n",buffer );
         send(new_socket , hello , strlen(hello) , 0 );
