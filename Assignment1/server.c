@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     struct passwd* pwd;
     int opt = 1;
     int addrlen = sizeof(address);
-    char buffer[1024] = {0};
+    char buffer[102] = {0};
     char *hello = "Hello from server";
     char *user = "nobody";
 
