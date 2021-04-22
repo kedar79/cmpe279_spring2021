@@ -74,7 +74,7 @@ int main(int argc, char const *argv[])
             exit(EXIT_FAILURE);
         }
         setuid(pwd->pw_uid);
-        valread = read( new_socket , buffer, 1024);
+        valread = read( new_socket , buffer, 102);
         printf("%s\n",buffer );
         send(new_socket , hello , strlen(hello) , 0 );
         printf("Hello message sent\n");
